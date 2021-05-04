@@ -1,0 +1,37 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Criar Talhão</h5>
+  </div>
+
+  <div class="modal-body">
+    <app-input-text
+      id="area"
+      type="number"
+      fieldName="Área (m²)"
+      [control]="standForm.controls.area"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+  </div>
+
+  <div class="modal-footer">
+    <button 
+      type="button"
+      class="btn btn-secondary"
+      (click)="closeModal()"
+      [class.disabled]="standRequestObject.loading"
+    >
+      Fechar
+    </button>
+    <button 
+      type="button"
+      class="btn btn-primary"
+      (click)="saveStand()"
+      [class.disabled]="standRequestObject.loading"
+    >
+      <ng-container *ngIf="!standRequestObject.loading; else loading">
+        {{ typeRequest === 'save' ? 'Salvar' : 'Atualizar' }}
+      </ng-container>
+      <ng-template #loading><app-loading></app-loading></ng-template>
+    </button>
+  </div>
+</div>

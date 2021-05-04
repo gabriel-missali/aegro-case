@@ -1,0 +1,13 @@
+<div class="mb-3">
+  <div class="form-group">
+    <div class="input-group">
+      <textarea 
+        [id]="id + 'Input'"
+        class="form-control"
+        [class.hasValue]="control.value"
+        [(formControl)]="control"
+      ></textarea>
+      <label [for]="id + 'field'" class="form-control-placeholder">{{ fieldName }}</label>
+    </div>
+  </div>
+</div>

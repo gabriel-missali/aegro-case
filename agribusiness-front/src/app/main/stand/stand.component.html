@@ -1,0 +1,16 @@
+<div class="card p-2">
+  <div class="card-info mb-3 d-flex justify-content-between" *ngIf="standRequestObject.response">
+    <div class="d-flex flex-column">
+      <span class="card-info-title">Talhão ({{standRequestObject.response.area}} m²)</span>
+    </div>
+    <a class="card-info-link" [href]="'/farm/'+idFarm">Voltar</a>
+  </div>
+  
+  <app-sample
+    [standRequestObject]="standRequestObject"
+  ></app-sample>
+
+  <app-production
+    [standRequestObject]="standRequestObject"
+  ></app-production>
+</div>

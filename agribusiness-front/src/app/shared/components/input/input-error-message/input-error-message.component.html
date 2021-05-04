@@ -1,0 +1,7 @@
+<div *ngIf="errorValidation(control)">
+  <ng-container *ngFor="let error of control.errors | keyvalue; let first = first">
+    <p *ngIf="first" class="text-error mt-1 mb-0 font-weight-semibold">
+      {{ errorMsgs[error.key] }}
+    </p>
+  </ng-container>
+</div>

@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-center">
+  <div class="card col-12 col-md-6 mt-5">
+    <h1 class="text-center">Login</h1>
+    <div class="card-body">
+      <app-input-text
+        id="email"
+        type="email"
+        fieldName="E-mail"
+        [control]="loginForm.controls.email"
+        [errorMsgs]="msgsValidation"
+      ></app-input-text>
+
+      <app-input-text
+        id="password"
+        type="password"
+        fieldName="Senha"
+        [control]="loginForm.controls.password"
+        [canShowPassword]="true"
+        [errorMsgs]="msgsValidation"
+      ></app-input-text>
+
+      <div
+        *ngIf="this.loginRequestObject?.error"
+        class="error-messagem mb-3"
+      >
+        Usuário e/ou Senha inválido(s)
+      </div>
+
+      <button type="button" class="btn btn-primary w-100 mb-1" (click)="signUp()">
+        <ng-container *ngIf="!loginRequestObject?.loading; else loading">Entrar</ng-container>
+        <ng-template #loading><app-loading></app-loading></ng-template>
+      </button>
+
+      <a class="mt-3" routerLink="/login/register">Cadastrar</a>
+    </div>
+  </div>
+</div>

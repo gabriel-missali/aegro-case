@@ -1,0 +1,15 @@
+$colors: (
+  blue-light: #009ddb,
+  blue-dark: #0f2151,
+  coral: #f86060,
+  gray-disable: #b0b8c8,
+  gray-light: #f6f8f1,
+  gray-medium: #dce0e8,
+  gray-dark: #586880,
+  green-light: #00a000,
+  green-dark: #006600,
+);
+
+@function color ($color-name) {
+  @return map-get($colors, $color-name);
+}

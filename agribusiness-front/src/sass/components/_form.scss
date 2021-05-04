@@ -1,0 +1,95 @@
+.form-group {
+  position: relative;
+  box-shadow: 0 0 0 1px color(gray-medium);
+  background-color: color(gray-light);
+  border-radius: 4px;
+}
+
+.no-disabled {
+  border: none;
+  background-color: unset;
+}
+
+.form-control-placeholder {
+  position: absolute;
+  transition: all 200ms;
+  pointer-events: none;
+  color: color(gray-dark);
+  top: 15px;
+  left: 0px;
+  padding: 5px 0 0 16px;
+}
+
+.form-control {
+  border: 0;
+  font-weight: 600;
+  height: 60px;
+  padding: 28px 16px 8px;
+  color: color(blue-dark) !important;
+  background-color: transparent;
+  box-shadow: 0 0 0 1px color(gray-medium);
+
+  &.ng-invalid.ng-touched, .dirty-validation {
+    &:not(.force-validate) {
+      box-shadow: 0 0 0 1px color(coral);
+    }
+  }
+
+  &:focus {
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
+
+.form-control[readonly] {
+  background-color: unset;
+  opacity: unset;
+}
+
+.form-control:disabled {
+  background-color: unset;
+  color: color(gray-disable) !important;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control.hasValue + .form-control-placeholder,
+.force-float {
+  transform: translate3d(0, -50%, 0);
+  z-index: 3;
+  font-size: 14px;
+}
+
+.input-group {
+  .form-control {
+    border-radius: 4px !important;
+  }
+
+  .input-group-append {
+    position: absolute;
+    z-index: 4;
+    right: 0;
+    padding-right: 8px;
+
+    .show-password {
+      color: color(gray-dark);
+      position: relative;
+      transition: color 2s;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.boder-error {
+  box-shadow: 0 0 0 1px color(coral) !important;
+}
+
+.text-error {
+  color: color(coral);
+}
+
+input:focus {
+  outline: none;
+}

@@ -1,0 +1,46 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Criar Produção</h5>
+  </div>
+
+  <div class="modal-body">
+    <app-input-text
+      id="quantity"
+      type="number"
+      fieldName="Quantidade (kg)"
+      [control]="productionForm.controls.quantity"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+
+    <app-input-text
+      id="date"
+      type="date"
+      fieldName="Data"
+      [control]="productionForm.controls.date"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+  </div>
+
+  <div class="modal-footer">
+    <button 
+      type="button"
+      class="btn btn-secondary"
+      (click)="closeModal()"
+      [class.disabled]="productionRequestObject.loading"
+    >
+      Fechar
+    </button>
+
+    <button 
+      type="button"
+      class="btn btn-primary"
+      (click)="saveProduction()"
+      [class.disabled]="productionRequestObject.loading"
+    >
+      <ng-container *ngIf="!productionRequestObject.loading; else loading">
+        {{ typeRequestProduction === 'save' ? 'Salvar' : 'Atualizar' }}
+      </ng-container>
+
+      <ng-template #loading><app-loading></app-loading></ng-template>
+    </button>
+</div>

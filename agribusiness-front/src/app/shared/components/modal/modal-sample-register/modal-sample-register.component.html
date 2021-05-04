@@ -1,0 +1,55 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Criar Amostra</h5>
+  </div>
+
+  <div class="modal-body">
+    <app-input-text
+      id="quantityPlant"
+      type="number"
+      fieldName="Qtd Plantas (m²)"
+      [control]="sampleForm.controls.quantityPlant"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+
+    <app-input-text
+      id="mediaQuantityCerealsPlant"
+      type="number"
+      fieldName="Média Qtd de Cereais na Planta"
+      [control]="sampleForm.controls.mediaQuantityCerealsPlant"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+
+    <app-input-text
+      id="mediaQuantityCerealsPlant"
+      type="number"
+      fieldName="Média do Peso dos Cereais (gramas)"
+      [control]="sampleForm.controls.mediaWeight"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+  </div>
+
+  <div class="modal-footer">
+    <button 
+      type="button"
+      class="btn btn-secondary"
+      (click)="closeModal()"
+      [class.disabled]="sampleRequestObject.loading"
+    >
+      Fechar
+    </button>
+    
+    <button 
+      type="button"
+      class="btn btn-primary"
+      (click)="saveSample()"
+      [class.disabled]="sampleRequestObject.loading"
+    >
+      <ng-container *ngIf="!sampleRequestObject.loading; else loading">
+        {{ typeRequest === 'save' ? 'Salvar' : 'Atualizar' }}
+      </ng-container>
+
+      <ng-template #loading><app-loading></app-loading></ng-template>
+    </button>
+  </div>
+</div>

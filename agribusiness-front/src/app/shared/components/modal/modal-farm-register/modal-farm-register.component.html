@@ -1,0 +1,50 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Criar Fazenda</h5>
+  </div>
+
+  <div class="modal-body">
+    <app-input-text
+      id="name"
+      fieldName="Nome"
+      [control]="farmForm.controls.name"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+
+    <app-input-text
+      id="address"
+      fieldName="Endereço"
+      [control]="farmForm.controls.address"
+      [errorMsgs]="msgsValidation"
+    ></app-input-text>
+
+    <app-text-area
+      id="description"
+      fieldName="Descrição"
+      [control]="farmForm.controls.description"
+    ></app-text-area>
+  </div>
+
+  <div class="modal-footer">
+    <button 
+      type="button"
+      class="btn btn-secondary"
+      (click)="closeModal()"
+      [class.disabled]="farmRequestObject.loading"
+    >
+      Fechar
+    </button>
+    
+    <button 
+      type="button"
+      class="btn btn-primary"
+      (click)="saveFarm()"
+      [class.disabled]="farmRequestObject.loading"
+    >
+      <ng-container *ngIf="!farmRequestObject.loading; else loading">
+        {{ typeRequest === 'save' ? 'Salvar' : 'Atualizar' }}
+      </ng-container>
+      <ng-template #loading><app-loading></app-loading></ng-template>
+    </button>
+  </div>
+</div>

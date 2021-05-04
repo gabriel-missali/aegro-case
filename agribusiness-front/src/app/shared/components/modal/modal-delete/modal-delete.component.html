@@ -1,0 +1,30 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="deleteModalLabel">{{title}}</h5>
+  </div>
+
+  <div class="modal-body">
+    {{body}}
+    <div *ngIf="warning" class="warning">{{warning}}</div>
+  </div>
+
+  <div class="modal-footer">
+    <button 
+      type="button"
+      class="btn btn-secondary"
+      (click)="closeModal()"
+      [class.disabled]="deleteRequestObject.loading"
+    >
+      Fechar
+    </button>
+    <button 
+      type="button"
+      class="btn btn-danger"
+      (click)="deleteItem()"
+      [class.disabled]="deleteRequestObject.loading"
+    >
+      <ng-container *ngIf="!deleteRequestObject.loading; else loading">Excluir</ng-container>
+      <ng-template #loading><app-loading></app-loading></ng-template>
+    </button>
+  </div>
+</div>

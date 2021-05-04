@@ -1,0 +1,67 @@
+@import "./../../sass/abstracts/variables";
+
+header{
+  background-color: color(gray-medium);
+  flex-shrink: 0;
+}
+
+.page{
+  height: 100vh;
+}
+
+.main{
+  flex: 1 0 auto;
+}
+
+.navbar{
+  &-link {
+    text-decoration: none !important;
+  }
+
+  &-logout {
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    color: #000;
+    cursor: pointer;
+  }
+
+  &-icon-logo{
+    font-size: 44px;
+    color: color(green-dark);
+  }
+
+  &-icon-user{
+    font-size: 38px;
+    color: #000;
+  }
+
+  &-title {
+    font-size: 28px;
+    color: color(green-light);
+  }
+}
+
+.dropdown-menu {
+  left: unset;
+  right: 0;
+  margin-top: -10px;
+}
+
+.logout:hover {
+  background-color: color(gray-medium);
+}
+
+.btn-logout{
+  font-weight: 600;
+}
+
+body {
+  margin-bottom:50px;
+  height: 100vh;
+}
+
+footer {
+  background-color: color(gray-medium);
+  height: 60px;
+  flex-shrink: 0;
+}

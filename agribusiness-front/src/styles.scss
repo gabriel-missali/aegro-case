@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+@import "./sass/abstracts/variables";
+
+@import "./sass/components/buttons";
+@import "./sass/components/card";
+@import "./sass/components/form";
+@import "./sass/components/icons";
+
+.cursor-pointer {
+  cursor: pointer;
+}

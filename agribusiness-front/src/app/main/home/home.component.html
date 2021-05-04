@@ -1,0 +1,96 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Fazendas</span>
+    <button 
+      class="btn btn-primary float-right card-header-button"
+      (click)="createFarm(registerModal)"
+    >
+      Adicionar
+    </button>
+  </div>
+  <div class="card-body">
+    <ng-container *ngIf="farmRequestObject?.showContent()">
+      <ng-container *ngIf="farmRequestObject.response?.length; else noResult">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Endereço</th>
+              <th>Descrição</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let farm of farmRequestObject.response">
+              <td>{{farm.id}}</td>
+              <td>{{farm.name}}</td>
+              <td>{{farm.address}}</td>
+              <td>{{farm.description}}</td>
+              <td class="icons-action">
+                <a  [routerLink]="['farm', farm.id]" class="icon-view me-2" title="Visualizar">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+
+                <button 
+                  class="no-btn me-2 cursor-pointer"
+                  title="Editar"
+                  (click)="updateFarm(farm, registerModal)"
+                >
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+
+                <button 
+                  class="no-btn cursor-pointer me-2"
+                  title="Exlcuir"
+                  (click)="deleteFarm(farm.id, confirmModal)"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+
+                <a [routerLink]="['report', farm.id]" class="icon-view" title="Relatório">
+                  <i class="fa fa-file-text" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    
+      <ng-template #noResult>
+        <app-empty></app-empty>
+      </ng-template>
+      
+    </ng-container>
+    
+    <div *ngIf="farmRequestObject?.loading" class="pt-3">
+      <app-loading></app-loading>
+    </div>
+
+    <app-error
+      *ngIf="farmRequestObject?.error"
+      [tryAgainObservable]="farmRequestObject.observable"
+    ></app-error>
+  </div>
+</div>
+
+<ng-template #registerModal>
+  <app-modal-farm-register 
+    [(updateValue)]="updateValue"
+    [modalRef]="modalRef"
+    [typeRequest]="typeRequest"
+    [farmForm]="farmForm"
+  ></app-modal-farm-register>
+</ng-template>
+
+
+<ng-template #confirmModal>
+  <app-modal-delete 
+    [(updateValue)]="updateValue"
+    [modalRef]="modalRef"
+    body="Tem certeza que deseja excluir uma fazenda?"
+    title="Remover fazenda"
+    [deleteRequestObject]="deleteRequestObject"
+    warning="Antes de remover a fazenda é necessário excluir os talhões"
+  ></app-modal-delete>
+</ng-template>

@@ -1,0 +1,35 @@
+.card-header {
+  font-size: 24px;
+  color: color(green-light);
+  font-weight: 600;
+
+  &-button{
+    height: 40px;
+  }
+}
+
+.card {
+  &-info {
+    &-title {
+      font-size: 32px;
+      color: color(green-dark);
+      font-weight: bold;
+    }
+
+    &-subtitle {
+      font-size: 24px;
+      color: color(green-dark);
+      font-weight: bold;
+    }
+
+    &-link {
+      text-decoration: none;
+      color: color(blue-dark);
+      font-size: 14px;
+
+      &:hover {
+        color: color(blue-dark);
+      }
+    }
+  }
+}

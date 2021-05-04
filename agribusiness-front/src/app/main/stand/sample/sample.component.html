@@ -1,0 +1,86 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Amostras</span>
+    <button 
+      class="btn btn-primary float-right card-header-button"
+      (click)="createSample(registerSampleModal)"
+    >
+      Adicionar
+    </button>
+  </div>
+  <div class="card-body">
+    <ng-container *ngIf="standRequestObject?.showContent()">
+      <ng-container *ngIf="standRequestObject.response.sampleList.length; else noResult">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Qtd Plantas (m²)</th>
+              <th>Média Qtd de Cereais na Planta</th>
+              <th>Média do Peso dos Cereais (gramas)</th>
+              <th>Estimativa de Produção (kg/m²)</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sample of standRequestObject.response.sampleList | keyvalue">
+              <td>{{+sample.key + 1}}</td>
+              <td>{{sample.value.quantityPlant}}</td>
+              <td>{{sample.value.mediaQuantityCerealsPlant}}</td>
+              <td>{{sample.value.mediaWeight}}</td>
+              <td>{{sample.value.estimate}}</td>
+              <td class="icons-action">
+                <button 
+                  class="no-btn mx-2 cursor-pointer"
+                  title="Editar"
+                  (click)="updateSample(sample.value, registerSampleModal)"
+                >
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+
+                <button 
+                  class="no-btn cursor-pointer" title="Exlcuir"
+                  (click)="deleteSample(sample.value.id, confirmSampleModal)"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-template #noResult>
+        <app-empty></app-empty>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="standRequestObject?.loading" class="pt-3">
+      <app-loading></app-loading>
+    </div>
+
+    <app-error
+      *ngIf="standRequestObject?.error"
+      [tryAgainObservable]="standRequestObject.observable"
+    ></app-error>
+  </div>
+</div>
+
+<ng-template #registerSampleModal>
+  <app-modal-sample-register
+    [(updateValue)]="updateValue"
+    [modalRef]="modalRef"
+    [typeRequest]="typeRequest"
+    [sampleForm]="sampleForm"
+  ></app-modal-sample-register>
+</ng-template>
+
+<ng-template #confirmSampleModal>
+  <app-modal-delete 
+    [(updateValue)]="updateValue"
+    [modalRef]="modalRef"
+    body="Tem certeza que deseja excluir uma amostra?"
+    title="Remover Amostra"
+    [deleteRequestObject]="deleteRequestObject"
+  ></app-modal-delete>
+</ng-template>

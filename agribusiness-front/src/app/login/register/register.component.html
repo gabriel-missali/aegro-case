@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="card col-12 col-md-6 mt-5">
+    <h1 class="text-center">Register</h1>
+    <div class="card-body">
+      <app-input-text
+        id="name"
+        fieldName="Nome"
+        [control]="registerForm.controls.name"
+        [errorMsgs]="msgsValidation"
+      ></app-input-text>
+
+      <app-input-text
+        id="email"
+        fieldName="E-mail"
+        [control]="registerForm.controls.email"
+        [errorMsgs]="msgsValidation"
+      ></app-input-text>
+
+      <app-input-text
+        id="password"
+        type="password"
+        fieldName="Senha"
+        [control]="registerForm.controls.password"
+        [canShowPassword]="true"
+        [errorMsgs]="msgsValidation"
+      ></app-input-text>
+
+      <app-input-text
+        id="confirmPassword"
+        type="password"
+        fieldName="Confirmar senha"
+        [control]="registerForm.controls.confirmPassword"
+        [canShowPassword]="true"
+        [errorMsgs]="msgsValidation"
+      ></app-input-text>
+
+      <button type="button" class="btn btn-primary w-100" (click)="register()">
+        <ng-container *ngIf="!registerRequestObject?.loading; else loading">Cadastrar</ng-container>
+        <ng-template #loading><app-loading></app-loading></ng-template>
+      </button>
+      <a href="/">Voltar</a>
+    </div>
+  </div>
+</div>

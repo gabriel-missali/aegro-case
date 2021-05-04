@@ -1,0 +1,95 @@
+<div class="card p-2">
+  <div class="card-info mb-3 d-flex justify-content-between">
+    <div class="d-flex flex-column" *ngIf="farmRequestObject.response">
+      <span class="card-info-title">{{farmRequestObject.response.name}}</span>
+      <span>{{farmRequestObject.response.address}}</span>
+      <span>{{farmRequestObject.response.description}}</span>
+    </div>
+    <a class="card-info-link" href="/">Voltar</a>
+  </div>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Talhões</span>
+      <button 
+        class="btn btn-primary float-right card-header-button"
+        (click)="createStand(registerModal)"
+      >
+        Adicionar
+      </button>
+    </div>
+    <div class="card-body">
+      <ng-container *ngIf="farmRequestObject?.showContent()">
+        <ng-container *ngIf="farmRequestObject.response.standsList.length; else noResult">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Área</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let stand of farmRequestObject.response.standsList | keyvalue">
+                <td>{{+stand.key + 1}}</td>
+                <td>{{stand.value.area}} m²</td>
+                <td class="icons-action">
+                  <a  [routerLink]="['stand', stand.value.id]" class="icon-view" title="Visualizar">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </a>
+  
+                  <button 
+                    class="no-btn mx-2 cursor-pointer"
+                    title="Editar"
+                    (click)="updateStand(stand.value, registerModal)"
+                  >
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+  
+                  <button 
+                    class="no-btn cursor-pointer" title="Exlcuir"
+                    (click)="deleteStand(stand.value.id, confirmModal)"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+
+        <ng-template #noResult>
+          <app-empty></app-empty>
+        </ng-template>
+      </ng-container>
+
+      <div *ngIf="farmRequestObject?.loading" class="pt-3">
+        <app-loading></app-loading>
+      </div>
+
+      <app-error
+        *ngIf="farmRequestObject?.error"
+        [tryAgainObservable]="farmRequestObject.observable"
+      ></app-error>
+    </div>
+  </div>
+</div>
+
+<ng-template #registerModal>
+  <app-modal-stand-register
+    [(updateValue)]="updateValue"
+    [modalRef]="modalRef"
+    [typeRequest]="typeRequest"
+    [standForm]="standForm"
+  ></app-modal-stand-register>
+</ng-template>
+
+<ng-template #confirmModal>
+  <app-modal-delete 
+    [(updateValue)]="updateValue"
+    [modalRef]="modalRef"
+    body="Tem certeza que deseja excluir um talhão?"
+    title="Remover Talhão"
+    [deleteRequestObject]="deleteRequestObject"
+    warning="Antes de remover o talhão é necessário excluir as amostras e/ou produções"
+  ></app-modal-delete>
+</ng-template>

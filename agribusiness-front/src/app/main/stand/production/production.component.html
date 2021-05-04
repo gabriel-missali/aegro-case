@@ -1,0 +1,83 @@
+<div class="card mt-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Produção</span>
+    <button 
+      class="btn btn-primary float-right card-header-button"
+      (click)="createProduction(registerProductionModal)"
+    >
+      Adicionar
+    </button>
+  </div>
+
+  <div class="card-body">
+    <ng-container *ngIf="standRequestObject?.showContent()">
+      <ng-container *ngIf="standRequestObject.response.productionList.length; else noResult">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Quantidade (kg)</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let production of standRequestObject.response.productionList | keyvalue">
+              <td>{{+production.key + 1}}</td>
+              <td>{{production.value.quantity}}</td>
+              <td>{{production.value.date | date: 'dd/MM/yyyy' : 'UTC'}}</td>
+              <td class="icons-action">
+                <button 
+                  class="no-btn mx-2 cursor-pointer"
+                  title="Editar"
+                  (click)="updateProduction(production.value, registerProductionModal)"
+                >
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+
+                <button 
+                  class="no-btn cursor-pointer" title="Exlcuir"
+                  (click)="deleteProduction(production.value.id, confirmProductionModal)"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <ng-template #noResult>
+        <app-empty></app-empty>
+      </ng-template>
+    </ng-container>
+
+    <div *ngIf="standRequestObject?.loading" class="pt-3">
+      <app-loading></app-loading>
+    </div>
+
+    <app-error
+      *ngIf="standRequestObject?.error"
+      [tryAgainObservable]="standRequestObject.observable"
+    ></app-error>
+  </div>
+</div>
+
+<ng-template #registerProductionModal>
+  <app-modal-production-register
+    [(updateValueProduction)]="updateProductionValue"
+    [modalRef]="modalRef"
+    [typeRequestProduction]="typeRequestProduction"
+    [productionForm]="productionForm"
+  ></app-modal-production-register>
+</ng-template>
+
+<ng-template #confirmProductionModal>
+  <app-modal-delete 
+    [(updateValue)]="deleteProductionValue"
+    [modalRef]="modalRef"
+    body="Tem certeza que deseja excluir uma produção?"
+    title="Remover Produção"
+    [deleteRequestObject]="deleteRequestObject"
+  ></app-modal-delete>
+</ng-template>

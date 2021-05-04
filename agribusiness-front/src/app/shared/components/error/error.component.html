@@ -1,0 +1,16 @@
+<div class="error-box text-center mx-auto d-flex flex-column align-items-center">
+  <i class="fa fa-exclamation-triangle icon-notification" aria-hidden="true"></i>
+
+  <div class="error-info">
+    <div>
+      Não foi possível processar sua requisição no momento.
+      <button
+        type="button"
+        class="btn-link link border-0 cursor-pointer bg-transparent p-0"
+        (click)="retry()"
+      >
+        Tente novamente.
+      </button>
+    </div>
+  </div>
+</div>
