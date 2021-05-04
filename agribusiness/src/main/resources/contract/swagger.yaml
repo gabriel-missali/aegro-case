@@ -1,0 +1,462 @@
+openapi: 3.0.3
+info:
+  title: Case Aegro
+  description: Swagger do Case
+  version: 0.0.1
+
+paths:
+  /farms:
+    get:
+      tags:
+        - Farm
+      description: Busca todas as fazendas de um usuário
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/farmArray"
+
+    post:
+      tags:
+        - Farm
+      description: Criar uma nova fazenda
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/farmModel"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/farmModel"
+
+  /farms/{id}:
+    get:
+      tags:
+        - Farm
+      description: Busca uma fazenda pelo id
+      parameters:
+        - in: path
+          name: id
+          description: Código da fazenda a ser buscada
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/farm"
+
+    delete:
+      tags:
+        - Farm
+      description: Deleta uma fazenda
+      parameters:
+        - in: path
+          name: id
+          description: Código da fazenda a ser apagada
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: NO_CONTENT
+
+    put:
+      tags:
+        - Farm
+      description: Deleta uma fazenda
+      parameters:
+        - in: path
+          name: id
+          description: Código da fazenda a ser apagada
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/farm"
+
+  /farms/{idFarm}/stands:
+    post:
+      tags:
+        - Stand
+      description: Cria um novo talhão
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/standModel"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/stand"
+
+  /stands/{id}:
+    delete:
+      tags:
+        - Stand
+      description: Deleta um talhão
+      parameters:
+        - in: path
+          name: id
+          description: Código do talhão a ser apagado
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: NO_CONTENT.
+
+  /farms/{idFarm}/stands/{idStand}:
+    put:
+      tags:
+        - Stand
+      description: Atualiza um talhão
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idStand
+          description: Código do talhão a ser atualizado
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/standModel"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/stand"
+
+    get:
+      tags:
+        - Stand
+      description: Busca um talhão por id
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idStand
+          description: Código do talhão a ser atualizado
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/stand"
+
+  /farms/{idFarm}/stands/{idStand}/productions:
+    post:
+      tags:
+        - Production
+      description: Cria um nova produção
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idStand
+          description: Código do talhão que possui a produção
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/production"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/production"
+
+  /productions/{id}:
+    delete:
+      tags:
+        - Production
+      description: Deleta uma produção
+      parameters:
+        - in: path
+          name: id
+          description: Código da produção a ser apagada
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: NO_CONTENT.
+
+  /farms/{idFarm}/stands/{idStand}/productions/{idProduction}:
+    put:
+      tags:
+        - Production
+      description: Atualiza uma produção
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idStand
+          description: Código do talhão que possui a produção
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idProduction
+          description: Código da produção a ser atualizada
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/production"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/production"
+
+  /report/{id}:
+    get:
+      tags:
+        - Report
+      description: Gera relatório de produção
+      parameters:
+        - in: path
+          name: id
+          description: Código da fazenda para gerar o relatório
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/report"
+
+  /farms/{idFarm}/stands/{idStand}/samples:
+    post:
+      tags:
+        - Sample
+      description: Cria um nova amostra
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idStand
+          description: Código do talhão que possui a produção
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/sample"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sample"
+
+  /samples/{id}:
+    delete:
+      tags:
+        - Sample
+      description: Deleta uma amostre
+      parameters:
+        - in: path
+          name: id
+          description: Código da amostra a ser apagada
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: NO_CONTENT.
+
+  /farms/{idFarm}/stands/{idStand}/samples/{idSample}:
+    put:
+      tags:
+        - Sample
+      description: Atualiza uma amostra
+      parameters:
+        - in: path
+          name: idFarm
+          description: Código da fazenda que possui o talhão
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idStand
+          description: Código do talhão que possui a amostra
+          required: true
+          schema:
+            type: integer
+        - in: path
+          name: idSample
+          description: Código da amostra a ser atualizada
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/sample"
+      responses:
+        "200":
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/sample"
+
+components:
+  schemas:
+
+    farmArray:
+      type: array
+      items:
+        $ref: "#/components/schemas/farm"
+
+    farm:
+      allOf:
+        - $ref: "#/components/schemas/farmModel"
+        - type: object
+          properties:
+            standsList:
+              type: array
+              items:
+                $ref: "#/components/schemas/stand"
+
+    farmModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        address:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+
+    stand:
+      allOf:
+        - $ref: "#/components/schemas/standModel"
+        - type: object
+          properties:
+            productionList:
+              type: array
+              items:
+                $ref: "#/components/schemas/production"
+            sampleList:
+              type: array
+              items:
+                $ref: "#/components/schemas/sample"
+
+    standModel:
+      type: object
+      properties:
+        id:
+          type: integer
+        area:
+          type: integer
+
+    production:
+      type: object
+      properties:
+        id:
+          type: integer
+        quantity:
+          type: number
+        date:
+          type: string
+
+    sample:
+      type: object
+      properties:
+        id:
+          type: integer
+        mediaQuantityCerealsPlant:
+          type: number
+        mediaWeight:
+          type: number
+        quantityPlant:
+          type: integer
+
+
+    report:
+      type: array
+      items:
+        type: number
